@@ -98,6 +98,8 @@ def index():
         message = request.get_json()
         chat_id, store_id = parse_message( message )
         
+        send_message(chat_id, 'Wait a second...')
+
         if (store_id != 'error') & (store_id != 'start'):
             # loading data
             data = load_dataset(store_id)
