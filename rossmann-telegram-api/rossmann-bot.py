@@ -132,6 +132,7 @@ def index():
                 
         except Exception as e:
             # Captura qualquer exceção e retorna uma mensagem de erro genérica
+            send_message(chat_id, f'An error occurred: {str(e)}')
             return Response(f'An error occurred: {str(e)}', status=500)
 
         return Response('Ok', status=200)
