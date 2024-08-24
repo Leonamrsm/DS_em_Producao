@@ -17,7 +17,7 @@ TOKEN = '6876015521:AAGQZyLyFQYh6s1tHMIZA6yAMA67OmBelL4'
 # 'https://api.telegram.org/bot6876015521:AAGQZyLyFQYh6s1tHMIZA6yAMA67OmBelL4/sendMessage?chat_id=1049927447&text=Hi!'
 
 # Webhook
-# 'https://api.telegram.org/bot6876015521:AAGQZyLyFQYh6s1tHMIZA6yAMA67OmBelL4/setWebhook?url=https://8a7fde3cc88d73.lhr.life/'
+# 'https://api.telegram.org/bot6876015521:AAGQZyLyFQYh6s1tHMIZA6yAMA67OmBelL4/setWebhook?url=https://da8c50fcd742f0.lhr.life'
 
 def send_message( chat_id, text):
 
