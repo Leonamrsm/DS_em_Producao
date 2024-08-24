@@ -19,6 +19,9 @@ TOKEN = '6876015521:AAGQZyLyFQYh6s1tHMIZA6yAMA67OmBelL4'
 # Webhook
 # 'https://api.telegram.org/bot6876015521:AAGQZyLyFQYh6s1tHMIZA6yAMA67OmBelL4/setWebhook?url=https://da8c50fcd742f0.lhr.life'
 
+#  Webhook Render
+# 'https://api.telegram.org/bot6876015521:AAGQZyLyFQYh6s1tHMIZA6yAMA67OmBelL4/setWebhook?url=https://ds-em-producao-1.onrender.com'
+
 def send_message( chat_id, text):
 
     url = 'https://api.telegram.org/bot{}/'.format(TOKEN)
@@ -33,7 +36,7 @@ def send_message( chat_id, text):
 def load_dataset(store_id):
 
     # loading test dataset
-    df11 = pd.read_csv('../data/test.csv')
+    df11 = pd.read_csv('/data/test.csv')
     df_store_raw = pd.read_csv("../data/store.csv", low_memory=False)
 
     # merge test dataset + store
