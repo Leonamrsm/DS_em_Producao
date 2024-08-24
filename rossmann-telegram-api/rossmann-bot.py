@@ -35,9 +35,14 @@ def send_message( chat_id, text):
 
 def load_dataset(store_id):
 
+    # Construct absolute path for CSV files
+    script_dir = os.path.dirname(__file__)  # Diretório onde o script está localizado
+    test_csv_path = os.path.join(script_dir, 'test.csv')
+    store_csv_path = os.path.join(script_dir, 'store.csv')
+
     # loading test dataset
-    df11 = pd.read_csv('test.csv')
-    df_store_raw = pd.read_csv("store.csv")
+    df11 = pd.read_csv(test_csv_path)
+    df_store_raw = pd.read_csv(store_csv_path)
 
     # merge test dataset + store
     df_test = pd.merge(df11, df_store_raw, how='left', on='Store')
