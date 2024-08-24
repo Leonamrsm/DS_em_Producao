@@ -35,10 +35,16 @@ def send_message( chat_id, text):
 
 def load_dataset(store_id):
 
-    # Construct absolute path for CSV files
-    script_dir = os.path.dirname(__file__)  # Diretório onde o script está localizado
-    test_csv_path = os.path.join(script_dir, 'test.csv')
-    store_csv_path = os.path.join(script_dir, 'store.csv')
+    # Directory where the script is located
+    script_dir = os.path.dirname(__file__)
+
+    # Construct the path to the 'data' directory at the previous level
+    parent_dir = os.path.dirname(script_dir)
+    data_dir = os.path.join(parent_dir, 'data')
+
+    # Construct absolute paths to the CSV files
+    test_csv_path = os.path.join(data_dir, 'test.csv')
+    store_csv_path = os.path.join(data_dir, 'store.csv')
 
     # loading test dataset
     df11 = pd.read_csv(test_csv_path)
