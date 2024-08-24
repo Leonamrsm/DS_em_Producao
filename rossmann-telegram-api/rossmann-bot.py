@@ -107,28 +107,27 @@ def parse_message(message):
 def index():
     if request.method == 'POST':
         try:
-            # Obter a mensagem JSON
+            # Get the JSON message
             message = request.get_json()
             chat_id, store_id = parse_message(message)
 
-            # Enviar mensagem inicial
-            send_message(chat_id, 'Wait a second... ' + str(store_id))
+            # Send initial message
+            # send_message(chat_id, 'Wait a second... ' + str(store_id))
 
             # return Response('Ok', status=200)
 
-            # Verificar se store_id é válido
+            # Check if store_id is valid
             if store_id != 'error' and store_id != 'start':
                 # Carregar dados
                 data = load_dataset(store_id)
                 
                 if data != 'error':
-                    # Fazer previsão
+                    
                     d1 = predict(data)
                     
-                    # Calcular
                     d2 = d1[['store', 'prediction']].groupby('store').sum().reset_index()
 
-                    # Enviar mensagem com o resultado
+                    # Send message with the result
                     msg = 'Store Number {} will sell ${:,.2f} in the next 6 weeks'.format(
                             d2['store'].values[0],
                             d2['prediction'].values[0])
