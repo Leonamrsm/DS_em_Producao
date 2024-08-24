@@ -103,7 +103,7 @@ def index():
             # Enviar mensagem inicial
             send_message(chat_id, 'Wait a second... ' + str(store_id))
 
-            return Response('Ok', status=200)
+            # return Response('Ok', status=200)
 
             # Verificar se store_id é válido
             if store_id != 'error' and store_id != 'start':
