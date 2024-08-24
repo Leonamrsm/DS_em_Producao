@@ -92,42 +92,49 @@ def parse_message(message):
 
     return chat_id, store_id
 
-@app.route( '/', methods=['GET', 'POST'] )
+@app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        message = request.get_json()
-        chat_id, store_id = parse_message( message )
-        
-        send_message(chat_id, 'Wait a second... ' + str(store_id))
+        try:
+            # Obter a mensagem JSON
+            message = request.get_json()
+            chat_id, store_id = parse_message(message)
 
-        if (store_id != 'error') & (store_id != 'start'):
-            # loading data
-            data = load_dataset(store_id)
-            
-            if data != 'error':
+            # Enviar mensagem inicial
+            send_message(chat_id, 'Wait a second... ' + str(store_id))
 
-                # prediction
-                d1 = predict(data)
+            # Verificar se store_id é válido
+            if store_id != 'error' and store_id != 'start':
+                # Carregar dados
+                data = load_dataset(store_id)
                 
-                # calculation
-                d2 = d1[['store', 'prediction']].groupby('store').sum().reset_index()
+                if data != 'error':
+                    # Fazer previsão
+                    d1 = predict(data)
+                    
+                    # Calcular
+                    d2 = d1[['store', 'prediction']].groupby('store').sum().reset_index()
 
-                # send message
-                msg = 'Store Number {} will sell ${:,.2f} in the next 6 weeks'.format(
-                        d2['store'].values[0],
-                        d2['prediction'].values[0])
-                send_message(chat_id, msg)
+                    # Enviar mensagem com o resultado
+                    msg = 'Store Number {} will sell ${:,.2f} in the next 6 weeks'.format(
+                            d2['store'].values[0],
+                            d2['prediction'].values[0])
+                    send_message(chat_id, msg)
+                else:
+                    send_message(chat_id, 'Store Not Found')
 
+            elif store_id == 'start':
+                send_message(chat_id, 'Hello, enter the number of the store you would like to forecast sales for the next 6 weeks.')
             else:
-                send_message(chat_id, 'Store Not Found')
+                send_message(chat_id, 'Store ID is Wrong')
+                
+        except Exception as e:
+            # Captura qualquer exceção e retorna uma mensagem de erro genérica
+            return Response(f'An error occurred: {str(e)}', status=500)
 
-        elif store_id == 'start':
-            send_message(chat_id, 'Hello, enter the number of the store you would like to forecast sales for the next 6 weeks.')
-        else:
-            send_message(chat_id, 'Store ID is Wrong')
+        return Response('Ok', status=200)
     else:
         return '<h1> Rossmann Telegram BOT </h1>'
-    return Response('Ok', status=200)
 
 if __name__ == '__main__':
     port = os.environ.get( 'PORT', 5000) 
