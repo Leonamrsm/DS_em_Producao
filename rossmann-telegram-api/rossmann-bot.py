@@ -36,8 +36,8 @@ def send_message( chat_id, text):
 def load_dataset(store_id):
 
     # loading test dataset
-    df11 = pd.read_csv('/data/test.csv')
-    df_store_raw = pd.read_csv("/data/store.csv")
+    df11 = pd.read_csv('../data/test.csv')
+    df_store_raw = pd.read_csv("../data/store.csv")
 
     # merge test dataset + store
     df_test = pd.merge(df11, df_store_raw, how='left', on='Store')
@@ -133,7 +133,7 @@ def index():
         except Exception as e:
             # Captura qualquer exceção e retorna uma mensagem de erro genérica
             send_message(chat_id, f'An error occurred: {str(e)}')
-            return Response(f'An error occurred: {str(e)}', status=500)
+            return Response(f'An error occurred: {str(e)}', status=200)
 
         return Response('Ok', status=200)
     else:
