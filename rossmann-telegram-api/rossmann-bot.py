@@ -36,8 +36,8 @@ def send_message( chat_id, text):
 def load_dataset(store_id):
 
     # loading test dataset
-    df11 = pd.read_csv('../data/test.csv')
-    df_store_raw = pd.read_csv("../data/store.csv")
+    df11 = pd.read_csv('/data/test.csv')
+    df_store_raw = pd.read_csv("/data/store.csv")
 
     # merge test dataset + store
     df_test = pd.merge(df11, df_store_raw, how='left', on='Store')
@@ -98,7 +98,7 @@ def index():
         message = request.get_json()
         chat_id, store_id = parse_message( message )
         
-        send_message(chat_id, 'Wait a second...')
+        send_message(chat_id, 'Wait a second... ' + str(store_id))
 
         if (store_id != 'error') & (store_id != 'start'):
             # loading data
