@@ -127,7 +127,7 @@ def index():
                     
                     d2 = d1[['store', 'prediction']].groupby('store').sum().reset_index()
 
-                    # Send message with the result
+                    # Enviar mensagem com o resultado
                     msg = 'Store Number {} will sell ${:,.2f} in the next 6 weeks'.format(
                             d2['store'].values[0],
                             d2['prediction'].values[0])
